@@ -27,11 +27,11 @@ public class SessionUtil {
         return email;
     }
 
-    private static String getLoginMemberEmail(HttpSession session) {
+    public static String getLoginMemberEmail(HttpSession session) {
         return (String) session.getAttribute(LOGIN_MEMBER_EMAIL);
     }
 
-    private static String getLoginAdminEmail(HttpSession session) {
+    public static String getLoginAdminEmail(HttpSession session) {
         return (String) session.getAttribute(LOGIN_ADMIN_EMAIL);
     }
 

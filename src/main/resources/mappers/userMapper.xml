@@ -45,7 +45,7 @@
         FROM user
         WHERE id = #{id}
     </delete>
-    <select id="findByIdAndPassword" resultType="com.junhyun.boardwas.dto.UserDto">
+    <select id="findByEmailAndPassword" resultType="com.junhyun.boardwas.dto.UserDto">
         SELECT id,
         email,
         password,
@@ -56,7 +56,7 @@
         status,
         updateTime
         FROM user
-        WHERE id = #{id}
+        WHERE email = #{email}
         AND password = #{password}
         AND status != 'DELETE'
     </select>

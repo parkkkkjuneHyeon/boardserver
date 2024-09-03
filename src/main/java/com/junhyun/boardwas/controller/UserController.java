@@ -1,5 +1,6 @@
 package com.junhyun.boardwas.controller;
 
+import com.junhyun.boardwas.aop.LoginCheck;
 import com.junhyun.boardwas.dto.UserDto;
 import com.junhyun.boardwas.dto.request.UserDeleteEmail;
 import com.junhyun.boardwas.dto.request.UserLoginRequest;
@@ -35,25 +36,24 @@ public class UserController {
     }
 
     @PostMapping("/sign-in")
-    public ResponseEntity<LoginResponse> signIn(
+    public ResponseEntity<HttpStatus> signIn(
             @RequestBody UserLoginRequest userLoginRequest,
             HttpSession session) {
         String email = userLoginRequest.getEmail();
         String password = userLoginRequest.getPassword();
-        LoginResponse loginResponse;
-        ResponseEntity<LoginResponse> responseEntity;
+        ResponseEntity<HttpStatus> responseEntity;
         UserDto userInfo = userServiceImpl.login(email, password);
+
         if (userInfo == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }else if(userInfo != null){
-            loginResponse = LoginResponse.success(userInfo);
             if(userInfo.getStatus() == UserDto.Status.ADMIN)
                 SessionUtil.setLoginAdminEmail(session, email);
             else
                 SessionUtil.setLoginMemberEmail(session, email);
 
             responseEntity =
-                    new ResponseEntity<>(loginResponse, HttpStatus.OK);
+                    new ResponseEntity<>(HttpStatus.OK);
         }else {
             throw new RuntimeException("Login Error ! 유저 정보가 없거나 지원되지 않는 유저입니다.");
         }
@@ -74,13 +74,15 @@ public class UserController {
         SessionUtil.clear(session);
     }
 
+    @LoginCheck(type = LoginCheck.UserType.USER)
     @PatchMapping("/password")
     public ResponseEntity<HttpStatus> updateUserPassword(
+            String accountEmail,
             @RequestBody
             UserUpdatePasswordRequest userUpdatePasswordRequest,
             HttpSession session
     ) {
-        String email = SessionUtil.getLoginEmail(session);
+        String email = accountEmail;
         ResponseEntity<HttpStatus> responseEntity;
 
         try {
