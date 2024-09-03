@@ -40,10 +40,10 @@ public class LoginCheckAspect {
             log.debug(joinPoint.toString()+"accountName : " + email);
             throw  new HttpStatusCodeException(HttpStatus.UNAUTHORIZED, "로그인한 email값을 확인 해주세요.") {};
         }
-        Object[] modefiedArgs = joinPoint.getArgs();
-        if (modefiedArgs != null)
-            modefiedArgs[emailIndex] = email;
+        Object[] modifiedArgs = joinPoint.getArgs();
+        if (modifiedArgs != null)
+            modifiedArgs[emailIndex] = email;
         log.info("LoginCheckAspect 종료");
-        return joinPoint.proceed(modefiedArgs);
+        return joinPoint.proceed(modifiedArgs);
     }
 }
