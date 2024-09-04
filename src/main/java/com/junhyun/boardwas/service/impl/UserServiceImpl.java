@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getUserInfo(String email) {
-        return null;
+        return userProfileMapper.getUserProfile(email);
     }
 
     @Override

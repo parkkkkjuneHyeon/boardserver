@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.junhyun.boardwas.mapper.PostMapper">
+
+    <insert id="register" parameterType="com.junhyun.boardwas.dto.PostDto">
+        INSERT INTO post (
+            name, userId, isAdmin, contents, createTime,
+            views, categoryId
+            <if test="fileId > 0">
+                , fileId
+            </if>
+        )
+        VALUES(
+            #{name}, #{userId}, #{isAdmin}, #{contents},
+            #{createTime}, #{views}, #{categoryId}
+            <if test="fileId > 0">
+                , #{fileId}
+            </if>
+        )
+    </insert>
+
+    <select id="selectMyPosts" resultType="com.junhyun.boardwas.dto.PostDto">
+        SELECT *
+        FROM post
+        WHERE userId = #{userId}
+    </select>
+
+    <update id="updatePosts" parameterType="com.junhyun.boardwas.dto.PostDto">
+        UPDATE post
+        SET name = #{name},
+            contents = #{contents},
+            views = #{views},
+            categoryId = #{categoryId},
+            userId = #{userId},
+            <if test="fileId > 0">
+                fileId = #{fileId},
+            </if>
+            updateTime = #{updateTime}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deletePosts">
+        DELETE FROM post
+        WHERE id = #{postId}
+    </delete>
+</mapper>

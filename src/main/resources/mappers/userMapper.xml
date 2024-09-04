@@ -4,17 +4,9 @@
 <mapper namespace="com.junhyun.boardwas.mapper.UserProfileMapper">
 
     <select id="getUserProfile" resultType="com.junhyun.boardwas.dto.UserDto">
-        SELECT id,
-        email,
-        password,
-        nickname,
-        isAdmin,
-        createTime,
-        isWithDraw,
-        status,
-        updateTime
+        SELECT *
         FROM user
-        WHERE id = #{id}
+        WHERE email = #{email}
     </select>
 
     <insert id="register" parameterType="com.junhyun.boardwas.dto.UserDto">
@@ -26,18 +18,18 @@
     </insert>
     <insert id="insertUserProfile" parameterType="com.junhyun.boardwas.dto.UserDto">
         INSERT INTO user (email, password, nickname,
-        isAdmin, isWithDraw, status,
-        createTime, updateTime)
+            isAdmin, isWithDraw, status,
+            createTime, updateTime)
         VALUES(#{email}, #{password}, #{nickname},
-        #{isAdmin}, #{isWithDraw}, #{status},
-        #{createTime}, #{updateTime})
+            #{isAdmin}, #{isWithDraw}, #{status},
+            #{createTime}, #{updateTime})
     </insert>
     <update id="updateUserProfile" parameterType="com.junhyun.boardwas.dto.UserDto">
         UPDATE user
         SET password = #{password}
-        nickname = #{nickname}
-        isWithDraw = #{isWithDraw}
-        status = #{status}
+            nickname = #{nickname}
+            isWithDraw = #{isWithDraw}
+            status = #{status}
         WHERE id = #{id}
     </update>
     <delete id="deleteUserProfile">
@@ -47,18 +39,18 @@
     </delete>
     <select id="findByEmailAndPassword" resultType="com.junhyun.boardwas.dto.UserDto">
         SELECT id,
-        email,
-        password,
-        nickname,
-        isAdmin,
-        createTime,
-        isWithDraw,
-        status,
-        updateTime
+            email,
+            password,
+            nickname,
+            isAdmin,
+            createTime,
+            isWithDraw,
+            status,
+            updateTime
         FROM user
         WHERE email = #{email}
-        AND password = #{password}
-        AND status != 'DELETE'
+            AND password = #{password}
+            AND status != 'DELETE'
     </select>
 
     <select id="idCheck" resultType="int">

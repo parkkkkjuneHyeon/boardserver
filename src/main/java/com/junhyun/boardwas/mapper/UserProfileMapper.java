@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Mapper
 public interface UserProfileMapper {
-    UserDto getUserProfile(@Param("id") Long id);
+    UserDto getUserProfile(String email);
 
     int register(UserDto userProfile);
 
@@ -23,7 +23,7 @@ public interface UserProfileMapper {
             @Param("Status") String status,
             @Param("updateTime") Date updateTime);
 
-    int deleteUserProfile(@Param("id") Long id);
+    int deleteUserProfile(@Param("id") int id);
 
     UserDto findByEmailAndPassword(
             @Param("email") String email,
