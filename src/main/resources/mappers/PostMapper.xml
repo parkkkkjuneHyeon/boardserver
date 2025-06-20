@@ -18,6 +18,9 @@
                 , #{fileId}
             </if>
         )
+        <selectKey resultType="int" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
     </insert>
 
     <select id="selectMyPosts" resultType="com.junhyun.boardwas.dto.PostDto">

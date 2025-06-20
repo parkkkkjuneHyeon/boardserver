@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.junhyun.boardwas.mapper.TagMapper">
+
+    <insert id="registerTag" parameterType="com.junhyun.boardwas.dto.TagDto">
+        INSERT INTO tag (
+        name,
+        url
+        )
+        VALUES(
+        #{name},
+        #{url}
+        )
+        <selectKey keyProperty="id" resultType="Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <update id="updateTag" parameterType="com.junhyun.boardwas.dto.TagDto">
+        UPDATE tag
+        SET
+        name = #{name},
+        url = #{url}
+        WHERE id = #{tagId}
+    </update>
+
+    <delete id="deletePostTag">
+        DELETE FROM tag
+        WHERE id = #{tagId}
+    </delete>
+
+    <insert id="createPostTag">
+        INSERT INTO postTag(tagId, postId)
+        VALUES(#{tagId}, #{postId})
+    </insert>
+
+</mapper>

@@ -37,4 +37,29 @@
         </if>
     </select>
 
+    <select id="getPostByTag">
+        SELECT
+
+        id,
+        name,
+        isAdmin,
+        contents,
+        createTime,
+        views,
+        categoryId,
+        userId,
+        fileId,
+        updateTime
+
+        FROM post
+            INNER JOIN postTag ON post.id = postTag.postId
+            INNER JOIN tag ON postTag.tagId = tag.id
+
+        WHERE 1=1
+            AND tag.name = #{tagName}
+
+    </select>
+
+
+
 </mapper>

@@ -3,6 +3,7 @@ package com.junhyun.boardwas.dto;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,6 +22,8 @@ public class PostDto {
     private int isAdmin;
     private Date createTime;
     private Date updateTime;
+
+    private List<TagDto> tagDtoList;
 }
 
 
