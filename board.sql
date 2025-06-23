@@ -1,5 +1,6 @@
 -- 블로그 데이터베이스 스키마 생성 SQL
 
+
 -- 1. 사용자 테이블
 CREATE TABLE user (
                       id INT PRIMARY KEY AUTO_INCREMENT,

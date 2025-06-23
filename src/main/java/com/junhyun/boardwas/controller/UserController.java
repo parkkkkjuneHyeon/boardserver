@@ -15,6 +15,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Objects;
+
 @RestController
 @RequestMapping("/users")
 @Log4j2
@@ -44,17 +46,14 @@ public class UserController {
         ResponseEntity<HttpStatus> responseEntity;
         UserDto userInfo = userServiceImpl.login(email, password);
 
-        if (userInfo == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }else if(userInfo != null){
+        if(Objects.nonNull(userInfo)){
             log.info("user status : {}", userInfo.getStatus());
             if(userInfo.getStatus().equals(UserDto.Status.ADMIN))
                 SessionUtil.setLoginAdminEmail(session, email);
             else
                 SessionUtil.setLoginMemberEmail(session, email);
 
-            responseEntity =
-                    new ResponseEntity<>(HttpStatus.OK);
+            responseEntity = new ResponseEntity<>(HttpStatus.OK);
         }else {
             throw new RuntimeException("Login Error ! 유저 정보가 없거나 지원되지 않는 유저입니다.");
         }

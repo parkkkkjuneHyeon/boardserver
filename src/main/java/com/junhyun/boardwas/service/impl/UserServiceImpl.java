@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto login(String email, String password) {
         String cryptoPassword = encryptSHA256(password);
-        log.info(cryptoPassword);
+        log.info("login password : {}", cryptoPassword);
         return userProfileMapper.findByEmailAndPassword(email, cryptoPassword);
     }
 
