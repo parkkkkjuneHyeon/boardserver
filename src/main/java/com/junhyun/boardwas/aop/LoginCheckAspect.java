@@ -30,12 +30,12 @@ public class LoginCheckAspect {
         switch (userType) {
             case "ADMIN": {
                 email = SessionUtil.getLoginAdminEmail(session);
-                log.info("getLoginAdminEmail email : {}", email);
                 break;
             }
             case "USER": {
-                email = SessionUtil.getLoginMemberEmail(session);
-                log.info("getLoginMemberEmail email : {}", email);
+                email = SessionUtil.getLoginAdminEmail(session);
+                if(email == null)
+                    email = SessionUtil.getLoginMemberEmail(session);
                 break;
             }
         }
