@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Log4j2
@@ -37,12 +38,15 @@ public class PostServiceImpl implements PostService {
 
             postMapper.register(postDto);
 
-            postDto.getTagDtoList().forEach(tagDto -> {
-                Integer tagId = tagDto.getTagId();
+            List<TagDto> tagDtoList = postDto.getTagDtoList();
+            if(Objects.nonNull(tagDtoList))
+                tagDtoList.forEach(tagDto -> {
+                    Integer tagId = tagDto.getTagId();
 
-                tagMapper.registerTag(tagDto);
-                tagMapper.createPostTag(tagId, postId);
-            });
+                    tagMapper.registerTag(tagDto);
+                    tagMapper.createPostTag(tagId, postId);
+                });
+
         }else {
             log.error("registerPost ERROR! {}", postDto);
             throw new RuntimeException("registerPost ERROR! 게시글 등록 메소드를 확인해 주세요."
