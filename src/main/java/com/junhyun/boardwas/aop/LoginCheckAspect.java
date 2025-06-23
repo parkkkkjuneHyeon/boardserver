@@ -22,17 +22,20 @@ public class LoginCheckAspect {
     @Around("@annotation(com.junhyun.boardwas.aop.LoginCheck) && @annotation(loginCheck)")
     public Object adminLoginCheck(ProceedingJoinPoint joinPoint, LoginCheck loginCheck) throws Throwable {
         log.info("LoginCheckAspect 진입");
-        HttpSession session = (HttpSession) ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest().getSession();
+        HttpSession session = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest().getSession();
         String email = null;
         int emailIndex = 0;
         String userType = loginCheck.type().toString();
+        log.info("LoginCheckAspect userType : {}", userType);
         switch (userType) {
             case "ADMIN": {
                 email = SessionUtil.getLoginAdminEmail(session);
+                log.info("getLoginAdminEmail email : {}", email);
                 break;
             }
             case "USER": {
                 email = SessionUtil.getLoginMemberEmail(session);
+                log.info("getLoginMemberEmail email : {}", email);
                 break;
             }
         }

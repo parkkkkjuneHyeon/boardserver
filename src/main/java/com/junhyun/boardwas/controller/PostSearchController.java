@@ -7,6 +7,7 @@ import com.junhyun.boardwas.service.impl.PostSearchServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,9 +35,10 @@ public class PostSearchController {
         return new PostSearchResponse(postDtoList);
     }
 
+    @Setter
     @Getter
     @AllArgsConstructor
-    private static class PostSearchResponse {
+    public static class PostSearchResponse {
         private List<PostDto> postDtoList;
     }
 }

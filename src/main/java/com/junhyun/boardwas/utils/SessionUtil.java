@@ -21,9 +21,12 @@ public class SessionUtil {
         String email = getLoginMemberEmail(session);
         if (email == null) {
             email = SessionUtil.getLoginAdminEmail(session);
-        }else {
+        }
+
+        if(email == null){
             throw new RuntimeException("Login Error ! 유저 정보가 없거나 지원되지 않는 유저입니다.");
         }
+
         return email;
     }
 

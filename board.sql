@@ -3,10 +3,13 @@
 -- 1. 사용자 테이블
 CREATE TABLE user (
                       id INT PRIMARY KEY AUTO_INCREMENT,
-                      userId VARCHAR(50) NOT NULL UNIQUE,
-                      password VARCHAR(50) NOT NULL,
-                      isAdmin TINYINT DEFAULT 0,
+                      email VARCHAR(50) NOT NULL UNIQUE,
+                      nickname VARCHAR(50),
+                      password VARCHAR(100) NOT NULL,
+                      isAdmin boolean DEFAULT false,
                       createTime DATETIME DEFAULT CURRENT_TIMESTAMP,
+                      updateTime DATETIME DEFAULT CURRENT_TIMESTAMP,
+                      status VARCHAR(8),
                       isWithDraw TINYINT DEFAULT 0
 );
 
@@ -76,10 +79,10 @@ CREATE INDEX idx_posttag_post ON postTag(postId);
 CREATE INDEX idx_posttag_tag ON postTag(tagId);
 
 -- 샘플 데이터 삽입
-INSERT INTO user (userId, password, isAdmin) VALUES
-                                                 ('admin', 'admin123', 1),
-                                                 ('user1', 'password1', 0),
-                                                 ('user2', 'password2', 0);
+INSERT INTO user (email, password, isAdmin, status) VALUES
+                                                 ('admin', 'admin123', true, DEFAULT),
+                                                 ('user1', 'password1', false, DEFAULT),
+                                                 ('user2', 'password2', false, DEFAULT);
 
 INSERT INTO category (name) VALUES
                                 ('기술'),

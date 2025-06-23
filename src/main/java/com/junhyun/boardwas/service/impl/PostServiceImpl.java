@@ -12,6 +12,7 @@ import com.junhyun.boardwas.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -25,7 +26,7 @@ public class PostServiceImpl implements PostService {
     private final CommentMapper commentMapper;
     private final TagMapper tagMapper;
 
-
+    @Transactional
     @Override
     public void register(String email, PostDto postDto) {
         UserDto userInfo = userProfileMapper.getUserProfile(email);

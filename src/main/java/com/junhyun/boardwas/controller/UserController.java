@@ -47,7 +47,8 @@ public class UserController {
         if (userInfo == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }else if(userInfo != null){
-            if(userInfo.getStatus() == UserDto.Status.ADMIN)
+            log.info("user status : {}", userInfo.getStatus());
+            if(userInfo.getStatus().equals(UserDto.Status.ADMIN))
                 SessionUtil.setLoginAdminEmail(session, email);
             else
                 SessionUtil.setLoginMemberEmail(session, email);

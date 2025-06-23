@@ -216,7 +216,7 @@ public class PostController {
     @Getter
     @Setter
     @AllArgsConstructor
-    private static class PostResponse {
+    public static class PostResponse {
         private List<PostDto> postDtoList;
     }
 
@@ -224,7 +224,7 @@ public class PostController {
     @Setter
     @AllArgsConstructor
     @NoArgsConstructor
-    private static class PostDeleteResponse {
+    public static class PostDeleteResponse {
         private int postId;
         private int userId;
     }
@@ -232,7 +232,7 @@ public class PostController {
     //--- request 객체 ---
     @Getter
     @Setter
-    private static class PostRequest {
+    public static class PostRequest {
         private String name;
         private String contents;
         private int views;
